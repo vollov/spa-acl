@@ -1,0 +1,67 @@
+,
+
+      'test/unit/services/sessionServiceSpec.js',
+      'test/unit/services/routeServiceSpec.js',
+      'test/unit/services/flashServiceSpec.js',
+      'test/unit/services/authenticationServiceSpec.js',
+      'test/unit/services/paginationServiceSpec.js',
+      'test/unit/services/pageServiceSpec.js',
+      
+      'test/unit/controllers/postCodeSpec.js'
+      
+      
+
+demoApp.factory('User', function($http, SessionService){
+	var tokenid = SessionService.get('tokenid');
+	return {
+//		getById: function(id){
+//			return $http.get(httpRoot + '/api/message/:id', {params: {tid: tokenid}});
+//		},
+		query: function(){
+			var tokenid = SessionService.get('tokenid');
+			return $http.get(api_url_root + '/api/users', {
+				headers: {'SessionToken': tokenid}
+			});
+		}
+//		query: function(){
+//			return $http.get(api_url_root + '/api/users', {params: 
+//			{tid: tokenid,s:200, f:'postcode', d:1}});
+//		}
+//		save: function(message){
+//			return $http.post(httpRoot + '/public/login', message).
+//			success(function(response,status){
+//				if(status == 200){
+//					console.log('message saved: %j', response);
+//				}else{
+//					console.log('save error: %j', response);
+//				}
+//			}).
+//			error(function(response,status){
+//				console.log('save error: %j', response);
+//			});
+//		}
+	}
+});
+
+//demoApp.factory('User', function($resource, SessionService) {
+//	var tokenid = SessionService.get('tokenid');
+//	return $resource(api_url_root + '/api/users/:id', {id: '@id'}, {
+//		update: {method:'PUT', headers: {'SessionToken':tokenid}},
+//		save:   {method:'POST', url: api_url_root + '/public/users'},
+////		query:  {method:'GET', url: api_url_root + '/api/users', isArray:true,  headers: {'SessionToken':tokenid}},
+//		remove: {method:'DELETE',  headers: {'SessionToken':tokenid}},
+//		delete: {method:'DELETE',  headers: {'SessionToken':tokenid}}
+//	});
+//});
+
+
+			
+			console.log('[client] AuthenticationService.logout() with tokenid=' + tokenid);
+//			var logout = $http.get(api_url_root + '/api/logout', {'headers': {'SessionToken': tokenid}});
+			var logout = $http({method: 'GET', url: api_url_root + '/api/logout', 
+				headers: {'SessionToken': tokenid}
+			});
+			logout.success(uncacheSession).error(function(data, status, headers, config){
+				console.log('[client] AuthenticationService.logout().error() data=%j', data);
+				console.log('[client] AuthenticationService.logout().error() status=%j', status);
+			});

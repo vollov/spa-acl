@@ -1,0 +1,8 @@
+[1] To import seed data into mongodb:
+$mongo localhost:27017/spa-acl schema.js
+
+[2] redis
+$redis-cli
+>hmset f2cb3e8d653f46008272113c6c72422843901ef3 username wendy@abc.com role 2
+
+

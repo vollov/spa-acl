@@ -1,0 +1,37 @@
+<h4>Settings Page {{tokenid}}</h4>
+<div class="header" ng-controller="NavCtrl">
+	<ul class="nav nav-pills">
+		<li class="active"><a href="/vehicle">Vehicle</a></li>
+		<li><a href="/route">Route</a></li>
+		<li><a href="/user/profile">Profile</a></li>
+		<li><a href="" data-ng-click="logout()">Logout</a></li>
+	</ul>
+</div>
+
+	<table class="table table-condensed table-bordered table-hover">
+		<thead>
+			<tr>
+				<th> id </th>
+				<th>first name</th>
+				<th>last name</th>
+				<th>email</th>
+
+				<!--
+				<th>edit</th>
+				<th>delete</th>
+				-->
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-class-even="'even'" ng-repeat="user in users">
+				<td>{{$index + 1}}</td>
+				<td><a href="/users/{{user.id}}">{{user.firstname}}</a></td>
+				<td>{{user.lastname}}</td>
+				<td>{{user.email}}</td>
+				<!--
+				<td><a class='btn btn-primary' href="/user/{{user._id}}" ng-class='{disabled: index < 0}'>Edit</a></td>
+				<td><a class='btn btn-primary' ng-click='deleteUser(user, $index)' ng-class='{disabled: index < 0}'>Delete</a></td>
+				-->
+			<tr>
+		</tbody>
+	</table>

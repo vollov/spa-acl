@@ -1,4 +1,7 @@
 lib-cov
+coverage/
+.settings/
+*.project
 *.seed
 *.log
 *.csv

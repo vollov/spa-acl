@@ -4,7 +4,7 @@ var assert = require('assert')
   , should = require('should')
   , redisService = require('../../lib/redis');
 
-describe('Test redis session service:', function() {
+describe('Test redis session service:\n', function() {
 	var uuid = '110ec58a-a0f2-4ac4-8393-c866d813b8d1';
 	var email = 'mary@demo.org';
 	var token_id = 'f2cb3e8d653f46008272113c6c72422843902ef8';
@@ -38,7 +38,7 @@ describe('Test redis session service:', function() {
 			
 			var query = [token_id1, 'email'];
 			redisService.hget(query, function(err, reply){
-//				console.log(reply.toString());
+				//console.log('look up sub key =' + reply.toString());
 				should.not.exist(err);
 				reply.should.equal('wendy@abc.com');
 			});
@@ -50,6 +50,19 @@ describe('Test redis session service:', function() {
 		});
 	});
 
+	describe('Test look up subkey if key does not exists', function() {
+		it('should not be able to find a sub key if key does not exists', function(done) {
+			var query = ['dummykey', 'email'];
+			redisService.hget(query, function(err, reply){
+				should.not.exist(err);
+				//console.log('reply is->' + reply);
+				//reply.should.equal(1);
+				done();
+				
+			});
+		});
+	});
+	
 	describe('Test check if key in hash value', function() {
 		it('should be able to find a existing key', function(done) {
 			redisService.exists(token_id, function(err, reply){

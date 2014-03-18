@@ -11,11 +11,11 @@ describe('Test SessionService', function() {
 	});
 	
 	it('should be able to set/get/unset a key-value pair, backed by session cookies', function() {
-		expect(sessionService.get('tokenid')).toBeNull();
+		expect(sessionService.get('tid')).toBeUndefined();
 		sessionService.set('tid', 'f2cb3e8d653f46008272113c6c72422843902ef8');
 		//console.log('get tokenid = ' + sessionService.get('tokenid'));
 		expect(sessionService.get('tid')).toBe('f2cb3e8d653f46008272113c6c72422843902ef8');
 		sessionService.unset('tid');
-		expect(sessionService.get('tid')).toBeNull();
+		expect(sessionService.get('tid')).toBeUndefined();
 	});
 });

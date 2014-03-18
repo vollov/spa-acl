@@ -8,7 +8,7 @@ var request = require('supertest')
 
 var url = 'http://localhost:5002'
 
-describe('Test auth service', function() {
+describe('Test auth service\n', function() {
 	
 	var url_login = '/public/login';
 	

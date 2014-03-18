@@ -30,7 +30,22 @@ module.exports = function(app) {
 						redisService.save(token_id, record, function(err, reply){
 							// console.log(reply.toString());
 						});
-						return res.send(200, { tokenid : token_id});
+						
+						redisService.save(token_id, record, function(err, reply){
+							if(!err){
+								// session expire in 900 seconds = 15min
+								redisService.expire(token_id, 900, function(err, reply){
+									if(err) {
+										console.log(reply.toString());
+									}
+								});
+							} 
+//							else {
+//								console.log(reply.toString());
+//							}
+						});
+						
+						return res.send(200, { tokenid : token_id, uid : user._id, email : username});
 					}else{
 						return res.send(401, { message : 'incorrect password' });
 					}
@@ -46,10 +61,10 @@ module.exports = function(app) {
 		redisService.remove(tokenid, function(err, reply){
 			//console.log(reply.toString());
 			if(err){
-				console.log('user not in db');
+				// console.log('user not in db');
 				return res.send(401, { message : 'invalid tokenid' });
 			}else{
-				console.log('valid tokenid! tokenid=' + tokenid);
+				//console.log('valid tokenid! tokenid=' + tokenid);
 				return res.send(200, { message : 'logged out' });
 			}
 		});

@@ -12,7 +12,8 @@ module.exports = function(config){
       //'test/unit/controllers/user.test.js',
       'test/unit/services/session.test.js',
       'test/unit/services/flash.test.js',
-      'test/unit/services/authentication.test.js'
+      'test/unit/services/authentication.test.js',
+      'test/e2e/view.test.js'
     ],
 
     autoWatch : true,

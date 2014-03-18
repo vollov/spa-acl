@@ -85,7 +85,7 @@ describe('Test users api\n', function() {
 				if (err) return done(err);
 				
 				redisService.remove(token_id, function(err, reply){
-					console.log(reply.toString());
+					//console.log(reply.toString());
 					done();
 				});
 			});
@@ -136,7 +136,7 @@ describe('Test users api\n', function() {
 		
 		var url_add_user_api = '/public/users';
 		afterEach(function(done) {
-			db.remove('user', {'firstname': "Bill"}, function(err, numberOfRemovedDocs) {
+			db.remove('user', {'firstname': "Bill"}, true, function(err, numberOfRemovedDocs) {
 				should.not.exist(err);
 				// console.log('delete %j user', numberOfRemovedDocs);
 				done();

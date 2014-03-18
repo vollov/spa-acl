@@ -12,21 +12,37 @@ demoApp.controller('RegistrationCtrl', function($scope, $location, User){
 	};
 });
 
-//demoApp.contorller('VehicleCtrl', function($scope, $location, User){
+demoApp.contorller('VehicleCtrl', function($scope, $location, $http, SessionService){
+	var tokenid = SessionService.get('tid');
+
+	$http.get(api_url_root + '/api/vehicles',{params: {tid: tokenid}})
+		.success(function(data, status, headers, config) {
+			$scope.vehicles = data;
+		});
+	
+	$scope.saveVehicle = function(){
+		$http.post(api_url_root + '/api/vehicles', {params: {tid: tokenid}}).success(
+			function(data, status, headers, config) {
+				//$scope.vehicles = data;
+			});
+	};
+
+});
+
+demoApp.controller('UserCtrl', function($scope, $location, $http, SessionService) {
+	console.log('querying users.....');
+	var tokenid = SessionService.get('tid');
+	// TODO: implement $http here
+	$http.get(api_url_root + '/api/users',{params: {tid: tokenid}})
+		.success(function(data, status, headers, config) {
+			$scope.users = data;
+		});
+	
 //	$scope.users = User.query();
-//
+
 //	$scope.selectUser = function(row) {
 //		$scope.selectedRow = row;
 //	};
-//});
-
-demoApp.controller('UserCtrl', function($scope, $http, $location, User, SessionService) {
-	console.log('querying users.....');
-	$scope.users = User.query();
-
-	$scope.selectUser = function(row) {
-		$scope.selectedRow = row;
-	};
 });
 
 demoApp.controller('EditUserCtrl', function($scope, $location, $routeParams, User ) {
@@ -55,6 +71,6 @@ demoApp.controller("NavCtrl", function($scope, $location, AuthenticationService)
 		}).error(function(data, status, headers, config){
 			console.log('[client] NavCtrl.logout().error() data=%j', data);
 			console.log('[client] NavCtrl.logout().error() status=%j', status);
-		});;
+		});
 	};
 });

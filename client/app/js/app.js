@@ -5,7 +5,7 @@ var demoApp = angular.module('appModule', [ 'ngRoute', 'ngResource', 'ngCookies'
 demoApp.config(function($routeProvider, $locationProvider) {
 	
 	$routeProvider.when('/settings', {
-		controller : 'UserCtrl',
+		controller : 'VehicleCtrl',
 		templateUrl : '/views/settings.html'
 	}).when('/registration', {
 		controller : 'RegistrationCtrl',

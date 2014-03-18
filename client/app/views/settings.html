@@ -8,6 +8,11 @@
 	</ul>
 </div>
 
+<form class='form' ng-submit="saveVehicle()">
+	<h2 class='form-heading'>Add vehicle</h2>
+	<input class='form-control' placeholder="Vehicle Name" ng-model="vehicle.name" required>
+	<button class="btn btn-large btn-primary" type="submit">Save</button>
+</form>
 	<table class="table table-condensed table-bordered table-hover">
 		<thead>
 			<tr>

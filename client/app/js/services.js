@@ -11,16 +11,16 @@ demoApp.factory('User', function($resource, SessionService) {
 	});
 });
 
-demoApp.factory('SessionService', function(){
+demoApp.factory('SessionService', function($cookieStore){
 	return {
 		get: function(key){
-			return sessionStorage.getItem(key);
+			return $cookieStore.get(key);
 		},
 		set: function(key,value){
-			return sessionStorage.setItem(key, value);
+			return $cookieStore.put(key, value);
 		},
 		unset: function(key){
-			return sessionStorage.removeItem(key);
+			return $cookieStore.remove(key);
 		}
 	};
 });
@@ -42,16 +42,18 @@ demoApp.factory("FlashService", ['$rootScope', function($rootScope) {
 demoApp.factory('AuthenticationService', function($http, $location,
 		SessionService, FlashService) {
 	var cacheSession = function(response) {
-		//console.log('cacheSession response.tokenid=' + response.tokenid);
+		console.log('[cacheSession] before response.tokenid=' + response.tokenid);
 		SessionService.set('tid', response.tokenid);
+		console.log("[cacheSession] after SessionService.get('tid')=" + SessionService.get('tid'));
 		//SessionService.set('email', response.email);
 	};
 
 	var uncacheSession = function() {
 		SessionService.unset('tid');
+		console.log("[uncacheSession] after SessionService.get('tid')=" + SessionService.get('tid'));
 		//SessionService.unset('email');
 	};
-
+	
 	var loginError = function(response) {
 		//console.log('calling AuthenticationService.loginError!');
 		FlashService.set(response.message);
@@ -62,7 +64,7 @@ demoApp.factory('AuthenticationService', function($http, $location,
 			return $http.post(api_url_root + '/public/login', credentials).
 			success(function(response,status){
 				if(status == 200){
-					//console.log('auth login good, return id=' + response.tokenid);
+					console.log('auth login good, return id=' + response.tokenid);
 					cacheSession(response);
 					FlashService.clear();
 				}else{
@@ -81,13 +83,13 @@ demoApp.factory('AuthenticationService', function($http, $location,
 			return logout;
 		},
 		isLoggedIn : function() {
-			return !(SessionService.get('tid') == null);
+			return !(SessionService.get('tid') == undefined);
 		}
 	};
 });
 
-demoApp.run(function($rootScope, $location, $cookieStore, AuthenticationService) {
-	var routesThatRequireAuth = [ '/users','/settings' ];
+demoApp.run(function($rootScope, $location, AuthenticationService) {
+	var routesThatRequireAuth = [ '/user','/settings' ];
 
 	$rootScope.$on('$routeChangeStart', function(event, next, current) {
 		

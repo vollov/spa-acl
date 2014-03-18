@@ -53,6 +53,10 @@ module.exports = {
 		db.collection(collection).save(body, callback);
 		//console.log('save db=> ' + db + ' , coll=> ' + collection);
 	},
+	// bulk insert
+	insert : function(collection, body, callback) {
+		db.collection(collection).insert(body, callback);
+	},
 	//db.mycollection.update({name:'mathias'}, {$inc:{level:1}}, {multi:true}, function() {});
 	update : function(collection, query, body, options, callback) {
 		db.collection(collection).update(query, body, options, callback);
@@ -74,7 +78,8 @@ module.exports = {
 		//db.collection(collection).findAndModify(query, {}, update, options, callback);
 	},
 	
-	remove : function(collection, query, callback) {
-		db.collection(collection).remove(query, callback);
+	remove : function(collection, query, single, callback) {
+		db.collection(collection).remove(query, single, callback);
 	}
+	
 }

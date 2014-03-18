@@ -67,7 +67,7 @@ module.exports = function(app) {
 	 */
 	app.delete('/api/users/:id', function(req, res){
 		var id = req.params.id;
-		db.remove('user', {'_id': mongojs.ObjectId(id)}, function(err, message){
+		db.remove('user', {'_id': mongojs.ObjectId(id)}, true, function(err, message){
 			if (!err) {
 				res.json(true);
 			} else {

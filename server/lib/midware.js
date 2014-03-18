@@ -22,16 +22,18 @@ module.exports = {
 			return res.send(401, { message : 'please login' });
 		} else {
 			var tokenid = req.query.tid;
+			var query = [tokenid, 'email'];
 			// console.log('in authentication, got tid=' + tokenid);
-			redisService.exists(tokenid, function(err, reply){
-				if(reply == 1) {
+			redisService.hget(query, function(err, reply){
+				if(reply != null) {
 					// console.log('tid validation passed! tid=' + tokenid);
 					// we are going to extend the expire time, if the expire 
 					// is less than 60 seconds
 					redisService.ttl(tokenid, function(err, reply){
 						if(!err) {
 							if(reply <= 60) {
-								redisService.expire(tokenid, 3600, function(err, reply){
+								// reset session expire in 900 seconds = 15min
+								redisService.expire(tokenid, 900, function(err, reply){
 									if(err) {
 										console.log(reply.toString());
 									}
@@ -39,6 +41,8 @@ module.exports = {
 							}
 						}
 					});
+					// store email into local storage
+					res.locals.email = reply;
 					
 					next();
 				} else {

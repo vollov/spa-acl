@@ -27,6 +27,7 @@ app.all('/api/*', midware.authentication);
 //API
 require('./api/user')(app);
 require('./api/auth')(app);
+require('./api/vehicle')(app);
 
 app.listen(5002, '0.0.0.0');
 console.log("Express server listening...");

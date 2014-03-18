@@ -9,7 +9,7 @@ describe('Test db library\n', function() {
 	var firstname = 'demo';
 
 	afterEach(function(done) {
-		db.remove('user', {'firstname': firstname}, function(err, numberOfRemovedDocs) {
+		db.remove('user', {'firstname': firstname}, false, function(err, numberOfRemovedDocs) {
 			should.not.exist(err);
 			// console.log('delete %j user', numberOfRemovedDocs);
 			done();

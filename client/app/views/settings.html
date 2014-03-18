@@ -13,30 +13,18 @@
 	<input class='form-control' placeholder="Vehicle Name" ng-model="vehicle.name" required>
 	<button class="btn btn-large btn-primary" type="submit">Save</button>
 </form>
+
 	<table class="table table-condensed table-bordered table-hover">
 		<thead>
 			<tr>
-				<th> id </th>
-				<th>first name</th>
-				<th>last name</th>
-				<th>email</th>
-
-				<!--
-				<th>edit</th>
+				<th>name</th>
 				<th>delete</th>
-				-->
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-class-even="'even'" ng-repeat="user in users">
-				<td>{{$index + 1}}</td>
-				<td><a href="/users/{{user.id}}">{{user.firstname}}</a></td>
-				<td>{{user.lastname}}</td>
-				<td>{{user.email}}</td>
-				<!--
-				<td><a class='btn btn-primary' href="/user/{{user._id}}" ng-class='{disabled: index < 0}'>Edit</a></td>
-				<td><a class='btn btn-primary' ng-click='deleteUser(user, $index)' ng-class='{disabled: index < 0}'>Delete</a></td>
-				-->
+			<tr ng-class-even="'even'" ng-repeat="vehicle in vehicles">
+				<td><a href="/mileage/vehicle._id}}">{{vehicle.name}}</a></td>
+				<td><a class='btn btn-primary' ng-click='deleteVehicle(vehicle, $index)' ng-class='{disabled: index < 0}'>Delete</a></td>
 			<tr>
 		</tbody>
 	</table>

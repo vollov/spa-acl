@@ -19,6 +19,9 @@ demoApp.config(function($routeProvider, $locationProvider) {
 	}).when('/user/:id', {
 		controller : 'EditUserCtrl',
 		templateUrl : '/views/user/detail.html'
+	}).when('/mileage/:vid', {
+		controller : 'MileageCtrl',
+		templateUrl : '/views/mileage/list.html'
 	}).when('/500', {
 		templateUrl : '/views/public/500.html'
 	}).otherwise({

@@ -65,7 +65,7 @@ module.exports = function(app){
 				return res.send(200, mileage);
 			} else {
 				console.log(err);
-				return res.send(500, {message:'user registration failed'});
+				return res.send(500, {message:'DB Error when writing vehicle mileages'});
 			}
 		});
 	});

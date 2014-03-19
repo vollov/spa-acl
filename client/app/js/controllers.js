@@ -27,6 +27,19 @@ demoApp.contorller('VehicleCtrl', function($scope, $location, $http, SessionServ
 			});
 	};
 
+	$scope.deleteVehicle = function (vehicle, index) {
+		console.log('delete vehicle in index=' + index);
+	};
+});
+
+demoApp.controller('MileageCtrl', function($scope, $location, $routeParams, $http, SessionService){
+	var tokenid = SessionService.get('tid');
+	var vid = $routeParams.id;
+	
+	$http.get(api_url_root + '/api/mileages/' + vid, {params: {tid: tokenid}})
+		.success(function(data, status, headers, config) {
+			$scope.mileages = data;
+		});
 });
 
 demoApp.controller('UserCtrl', function($scope, $location, $http, SessionService) {

@@ -1,12 +1,12 @@
 'use strict';
 
 describe('Test FlashService', function () {
-	var flashService, rootScope;
+	var flashService;//, rootScope;$injector
 	
 	beforeEach(function(){
-		module('appModule');
-		inject(function(FlashService,$injector) {
-			rootScope = $injector.get('$rootScope');
+		module('appServices');
+		inject(function(FlashService) {
+			//rootScope = $injector.get('$rootScope');
 			flashService = FlashService;
 		});
 	});

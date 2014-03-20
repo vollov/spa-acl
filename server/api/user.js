@@ -29,8 +29,8 @@ module.exports = function(app) {
 		var sort = [['firstname', 1]];
 		db.find('user',{sort:sort,limit:20}, function(err, users) {
 			if (!err) {
-				var result = db.filterId(users);
-				return res.send(200,result);
+				//var result = db.filterId(users);
+				return res.send(200,users);
 			} else {
 				return console.log(err);
 			}

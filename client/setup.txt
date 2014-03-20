@@ -8,8 +8,16 @@
       'test/unit/services/pageServiceSpec.js',
       
       'test/unit/controllers/postCodeSpec.js'
-      
-      
+
+		
+		
+		
+		
+		console.log('sending tid in service =' + tokenid);
+		return $resource(api_url_root + '/api/users/:id', {id: '@id', tid: tokenid}, {
+			update: {method:'PUT'},
+			save:   {method:'POST', url: api_url_root + '/public/users'},
+		});
 
 demoApp.factory('User', function($http, SessionService){
 	var tokenid = SessionService.get('tokenid');

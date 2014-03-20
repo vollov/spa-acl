@@ -5,24 +5,23 @@ describe('Test AuthenticationService', function() {
 	var url = 'http://localhost:5002';
 	var authenticationService, sessionService,flashService,
 		$httpBackend, rootScope;
+	
 	var credentials = {
 			username: 'mary@demo.org',
 			password: 'passwd'
 	};
 	
-	beforeEach(function(){
-		module('appModule');
-		inject(function(AuthenticationService, SessionService, 
-				FlashService,$injector) {
-			authenticationService = AuthenticationService;
-			sessionService = SessionService;
-			
-			rootScope = $injector.get('$rootScope');
-			flashService = FlashService;
-		}, function(_$httpBackend_){
-			$httpBackend = _$httpBackend_;
-		});
-	});
+	beforeEach(module('appServices'));
+	
+	beforeEach(inject(function(AuthenticationService, SessionService, 
+				FlashService,$injector, _$httpBackend_) {
+		authenticationService = AuthenticationService;
+		sessionService = SessionService;
+		
+		rootScope = $injector.get('$rootScope');
+		flashService = FlashService;
+		$httpBackend = _$httpBackend_;
+	}));
 	
 	it('logged in should be false if cookie tid is null', function() {
 		//console.log('login when cookie tid is null');
@@ -93,7 +92,7 @@ describe('Test AuthenticationService', function() {
 		
 		$httpBackend.expectGET(url + '/api/logout?tid=f2cb3e8d653f46008272113c6c72422843902ef8')
 		.respond(200, { message : 'logged out' });
-		authenticationService.logout();
+		authenticationService.logout('f2cb3e8d653f46008272113c6c72422843902ef8');
 		$httpBackend.flush();
 		expect(authenticationService.isLoggedIn()).toBeFalsy();
 	});
